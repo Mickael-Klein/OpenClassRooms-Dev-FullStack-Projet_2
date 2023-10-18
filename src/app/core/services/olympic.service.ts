@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError, timer } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { OlympicCountry } from '../models/Olympic.model';
 
 @Injectable({
@@ -24,12 +24,16 @@ export class OlympicService {
         console.error(error);
         // can be useful to end loading state and let the user know something went wrong
         this.olympics$.next(null);
-        return throwError(error);
+        return throwError(() => new Error(error));
       })
     );
   }
 
+  // getOlympics() {
+  //   return this.olympics$.asObservable();
+  // }
+
   getOlympics() {
-    return this.olympics$.asObservable();
+    return timer(5000).pipe(switchMap(() => this.olympics$.asObservable()));
   }
 }

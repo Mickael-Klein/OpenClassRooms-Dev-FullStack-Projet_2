@@ -8,11 +8,15 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<any> = of(null);
+  public olympics$: Observable<any> = of(undefined);
+  public showLoader: boolean = true;
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+    this.olympics$.subscribe(() => {
+      this.showLoader = false;
+    });
   }
 }
