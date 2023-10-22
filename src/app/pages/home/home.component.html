@@ -1,5 +1,5 @@
-<h2>Olympic games app</h2>
-<hr />
-<app-loader *ngIf="showLoader"></app-loader>
+<app-loader
+  [ngClass]="{ visible: showLoader, invisible: !showLoader }"
+></app-loader>
 <p>{{ (olympics$ | async)?.length }} data loaded</p>
 <p>{{ (olympics$ | async)?.[2].country }}</p>
