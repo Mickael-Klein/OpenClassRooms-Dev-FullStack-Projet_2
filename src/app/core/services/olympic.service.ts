@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError, timer } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { catchError, delay, tap } from 'rxjs/operators';
 import { OlympicCountry } from '../models/Olympic.model';
 
 @Injectable({
@@ -17,6 +17,7 @@ export class OlympicService {
 
   loadInitialData() {
     return this.http.get<OlympicCountry[]>(this.olympicUrl).pipe(
+      delay(2000),
       tap((value) => this.olympics$.next(value)),
       tap((value) => console.log(value)),
       catchError((error) => {
@@ -29,11 +30,7 @@ export class OlympicService {
     );
   }
 
-  // getOlympics() {
-  //   return this.olympics$.asObservable();
-  // }
-
-  getOlympics() {
-    return timer(5000).pipe(switchMap(() => this.olympics$.asObservable()));
+  getOlympics(): Observable<OlympicCountry[] | null | undefined> {
+    return this.olympics$.asObservable();
   }
 }

@@ -1,5 +1,13 @@
-<app-loader
-  [ngClass]="{ visible: showLoader, invisible: !showLoader }"
-></app-loader>
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
-<p>{{ (olympics$ | async)?.[2].country }}</p>
+<!-- <p>{{ (olympics$ | async)?.length }} data loaded</p>
+<p>{{ (olympics$ | async)?.[2].country }}</p> -->
+<app-title-container [title]="titleValue"></app-title-container>
+<app-info-container
+  *ngIf="joNumber$ | async as joNumber"
+  [data]="joNumber"
+  class="joNumberContainer"
+></app-info-container>
+<app-info-container
+  *ngIf="countryNumber$ | async as countryNumber"
+  [data]="countryNumber"
+  class="countryNumberContainer"
+></app-info-container>

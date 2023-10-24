@@ -1,2 +1,8 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<app-loader
+  [ngClass]="{ visible: isLoading, invisible: !isLoading }"
+></app-loader>
+<router-outlet *ngIf="!isLoading && !loadDataErrorOccured"></router-outlet>
+<p *ngIf="!isLoading && loadDataErrorOccured">
+  An error occured, please come back later !
+</p>
