@@ -1,15 +1,13 @@
 @keyframes fadeOut {
-  0% {
+  from {
     opacity: 1;
   }
-  99% {
-    opacity: 0;
-  }
-  100% {
+  to {
     display: none;
+    opacity: 0;
   }
 }
 
 .invisible {
-  animation: fadeOut 1s ease-in-out forwards;
+  animation: fadeOut 0.7s ease-in-out forwards;
 }

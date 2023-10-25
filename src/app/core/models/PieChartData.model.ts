@@ -1,3 +1,7 @@
 export class PieChartData {
-  constructor(public country: string, public medalsCount: number) {}
+  constructor(
+    public name: string,
+    public value: number,
+    public extra: { id: number }
+  ) {}
 }

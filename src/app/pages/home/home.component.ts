@@ -11,7 +11,7 @@ import { PieChartData } from 'src/app/core/models/PieChartData.model';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  olympics$: Observable<OlympicCountry[] | undefined | null> = of(undefined);
+  olympics$: Observable<OlympicCountry[] | undefined | null> = of(undefined); // modify this line !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   joNumber$!: Observable<InfoContainer>;
   countryNumber$!: Observable<InfoContainer>;
   pieChartDatas$!: Observable<PieChartData[]>;
@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit {
     );
 
     this.pieChartDatas$ = this.olympics$.pipe(
+      // Create datas ready for consumption by pie-chart component
       map((data) => {
         const tempPieChartDatas: Array<PieChartData> = [];
         data?.forEach((item) => {
@@ -57,8 +58,9 @@ export class HomeComponent implements OnInit {
             return acc + cur.medalsCount;
           }, 0);
           const countryData: PieChartData = {
-            country: item.country,
-            medalsCount: countryMedalsCount,
+            name: item.country,
+            value: countryMedalsCount,
+            extra: { id: item.id },
           };
           tempPieChartDatas.push(countryData);
         });

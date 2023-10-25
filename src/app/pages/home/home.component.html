@@ -11,3 +11,8 @@
   [data]="countryNumber"
   class="countryNumberContainer"
 ></app-info-container>
+<app-pie-chart-container
+  *ngIf="pieChartDatas$ | async as pieChartDatas"
+  [data]="pieChartDatas"
+  class="pieChartContainer"
+></app-pie-chart-container>
