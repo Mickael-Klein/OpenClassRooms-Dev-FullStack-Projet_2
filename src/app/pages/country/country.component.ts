@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { OlympicCountry } from 'src/app/core/models/Olympic.model';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
