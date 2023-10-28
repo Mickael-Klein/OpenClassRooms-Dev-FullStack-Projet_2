@@ -1,1 +1,27 @@
+.homeInfoContainer {
+  margin: auto;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 3%;
+  flex-wrap: wrap;
 
+  @media screen and (max-width: 600px) {
+    margin-bottom: 0px;
+  }
+
+  &__component {
+    width: 200px;
+    margin-bottom: 15px;
+  }
+}
+
+.pieChartContainer {
+  min-width: 600px;
+  margin: auto;
+
+  @media screen and (max-width: 600px) {
+    min-width: 80%;
+    width: 80%;
+  }
+}

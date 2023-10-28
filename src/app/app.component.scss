@@ -1,3 +1,5 @@
+@import "../assets/Style/Variable";
+
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -10,4 +12,35 @@
 
 .invisible {
   animation: fadeOut 0.7s ease-in-out forwards;
+}
+
+::ng-deep ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
+  // tooltip styling
+  .tooltip-caret.position-top {
+    // border top (arrow) styling (pie chart)
+    border-top: 7px solid $color-background-primary;
+  }
+
+  .tooltip-caret.position-left {
+    // border left (arrow) styling (pie chart)
+    border-left: 7px solid $color-background-primary;
+  }
+
+  .tooltip-caret.position-right {
+    // border right (arrow) styling (pie chart)
+    border-right: 7px solid $color-background-primary;
+  }
+
+  background-color: $color-background-primary;
+  padding: 0 1rem;
+}
+
+.errorContainer {
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
 }

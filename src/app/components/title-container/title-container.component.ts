@@ -6,5 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./title-container.component.scss'],
 })
 export class TitleContainerComponent {
-  @Input() title!: string;
+  // Displays a container wich contains a title, uses as page title
+  @Input() title!: string; // Allow to pass data from parent component and use it, in this case in html template
 }

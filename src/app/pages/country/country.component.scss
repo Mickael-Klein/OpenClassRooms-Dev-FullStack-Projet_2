@@ -1,0 +1,24 @@
+.countryInfoContainer {
+  margin: auto;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+  flex-wrap: wrap;
+
+  &__component {
+    width: 235px;
+    margin-bottom: 15px;
+  }
+}
+
+.lineChartContainer {
+  margin: auto;
+  width: 50%;
+  min-width: 700px;
+
+  @media screen and (max-width: 600px) {
+    width: 85%;
+    min-width: 85%;
+  }
+}

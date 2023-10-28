@@ -1,3 +1,14 @@
-.label {
-  color: blue;
+// Outside part of the tooltip is styled using global style in app.component.scss
+
+@import "../../../assets/Style/Variable";
+
+.tooltip {
+  background-color: $color-background-primary;
+  color: white;
+  font-size: 1.2rem;
+
+  p {
+    margin: 0.3rem 0;
+    padding: 0;
+  }
 }

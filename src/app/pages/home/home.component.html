@@ -1,18 +1,21 @@
-<!-- <p>{{ (olympics$ | async)?.length }} data loaded</p>
-<p>{{ (olympics$ | async)?.[2].country }}</p> -->
 <app-title-container [title]="titleValue"></app-title-container>
-<app-info-container
-  *ngIf="joNumber$ | async as joNumber"
-  [data]="joNumber"
-  class="joNumberContainer"
-></app-info-container>
-<app-info-container
-  *ngIf="countryNumber$ | async as countryNumber"
-  [data]="countryNumber"
-  class="countryNumberContainer"
-></app-info-container>
-<app-pie-chart-container
-  *ngIf="pieChartDatas$ | async as pieChartDatas"
-  [data]="pieChartDatas"
-  class="pieChartContainer"
-></app-pie-chart-container>
+
+<div class="homeInfoContainer">
+  <app-info-container
+    *ngIf="joNumber$ | async as joNumber"
+    [data]="joNumber"
+    class="homeInfoContainer__component"
+  ></app-info-container>
+  <app-info-container
+    *ngIf="countryNumber$ | async as countryNumber"
+    [data]="countryNumber"
+    class="homeInfoContainer__component"
+  ></app-info-container>
+</div>
+
+<div class="pieChartContainer">
+  <app-pie-chart-container
+    *ngIf="pieChartDatas$ | async as pieChartDatas"
+    [data]="pieChartDatas"
+  ></app-pie-chart-container>
+</div>

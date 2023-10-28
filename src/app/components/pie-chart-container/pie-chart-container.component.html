@@ -2,6 +2,17 @@
   [results]="data"
   [gradient]="gradient"
   [labels]="showLabels"
+  [trimLabels]="trimLabels"
   [doughnut]="isDoughnut"
   (select)="onSelect($event)"
-></ngx-charts-pie-chart>
+>
+  <ng-template #tooltipTemplate let-model="model">
+    <!-- custom tooltip content on mouse over -->
+    <div class="tooltip">
+      <p class="tooltip__name">{{ model.name }}</p>
+      <p class="tooltip__value">
+        <fa-icon [icon]="faAward"></fa-icon> {{ model.value }}
+      </p>
+    </div>
+  </ng-template>
+</ngx-charts-pie-chart>

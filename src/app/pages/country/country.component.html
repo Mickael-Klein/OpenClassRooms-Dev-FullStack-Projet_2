@@ -1,1 +1,42 @@
-<p>country works!</p>
+<app-back-home-arrow></app-back-home-arrow>
+
+<app-title-container
+  *ngIf="countryName$ | async as contryName"
+  [title]="contryName"
+></app-title-container>
+
+<div class="countryInfoContainer">
+  <app-info-container
+    *ngIf="
+      infoContainerCountryEntriesCount$
+        | async as infoContainerCountryEntriesCount
+    "
+    [data]="infoContainerCountryEntriesCount"
+    class="countryInfoContainer__component"
+  ></app-info-container>
+
+  <app-info-container
+    *ngIf="
+      infoContainerCountryMedalsCount$
+        | async as infoContainerCountryMedalsCount
+    "
+    [data]="infoContainerCountryMedalsCount"
+    class="countryInfoContainer__component"
+  ></app-info-container>
+
+  <app-info-container
+    *ngIf="
+      infoContainerCountryAthletesCount$
+        | async as infoContainerCountryAthletesCount
+    "
+    [data]="infoContainerCountryAthletesCount"
+    class="countryInfoContainer__component"
+  ></app-info-container>
+</div>
+
+<div class="lineChartContainer">
+  <app-line-chart-container
+    *ngIf="lineChartContainerData$ | async as lineChartContainerData"
+    [lineChartDatasContainer]="lineChartContainerData"
+  ></app-line-chart-container>
+</div>

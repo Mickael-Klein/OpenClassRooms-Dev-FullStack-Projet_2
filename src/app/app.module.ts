@@ -12,7 +12,12 @@ import { TitleContainerComponent } from './components/title-container/title-cont
 import { InfoContainerComponent } from './components/info-container/info-container.component';
 import { PieChartContainerComponent } from './components/pie-chart-container/pie-chart-container.component';
 import { CountryComponent } from './pages/country/country.component';
+import { LineChartContainerComponent } from './components/line-chart-container/line-chart-container.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BackHomeArrowComponent } from './components/back-home-arrow/back-home-arrow.component';
 
+// All imports and Modules/Components declarations are made here
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,8 +29,17 @@ import { CountryComponent } from './pages/country/country.component';
     InfoContainerComponent,
     PieChartContainerComponent,
     CountryComponent,
+    LineChartContainerComponent,
+    BackHomeArrowComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
+    FontAwesomeModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

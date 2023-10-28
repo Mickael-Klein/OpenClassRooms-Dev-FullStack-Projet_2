@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountryComponent } from './pages/country/country.component';
 
+// Provide all the routes available in the app
 const routes: Routes = [
   {
     path: '',
@@ -19,6 +20,7 @@ const routes: Routes = [
   },
 ];
 
+// Provide the router for the whole app
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
