@@ -1,6 +1,6 @@
 # OlympicGamesStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
 
 Don't forget to install your node_modules before starting (`npm install`).
 
@@ -14,16 +14,13 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Where to start
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+An architecture has already been defined for the project. in case you want to modify this project, feel free to modify it and to use your own. The architecture includes (in addition to the default angular architecture) the following:
 
 - `components` folder: contains every reusable components
 - `pages` folder: contains components used for routing
 - `core` folder: contains the business logic (`services` and `models` folders)
+- `assets` folder: contains mock datas and style scss variable.
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
-
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
-
-You're now ready to implement the requested features.
-
-Good luck!
+This is a Single Page Application (SPA), and the routing is configured in the app-routing.module.ts file to handle navigation and display different components based on the URL paths.
+The http communications and data dispatch logic are handle by `core/services/olympics.service.ts`.
+Model classes are defined in `core/models`.
