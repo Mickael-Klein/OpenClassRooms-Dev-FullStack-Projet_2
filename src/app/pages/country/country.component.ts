@@ -26,6 +26,7 @@ export class CountryComponent implements OnInit {
   infoContainerCountryMedalsCount$!: Observable<InfoContainer>;
   infoContainerCountryAthletesCount$!: Observable<InfoContainer>;
   lineChartContainerData$!: Observable<LineChartDatasContainer>;
+  serviceResponseIsNotUndefined: boolean = true;
 
   constructor(
     // Provide router for navigation, route to get the active route in url, and olympicService to get access to specific data
@@ -41,8 +42,8 @@ export class CountryComponent implements OnInit {
     this.country$.subscribe((data) => {
       // Subscribe to observable to handle request result
       if (data === undefined) {
+        this.serviceResponseIsNotUndefined = false; // state variable is false to render correct view in case country id is not correct
         console.error('Id param in URL is invalid');
-        this.router.navigateByUrl('**'); // If incorrect id, redirect user to "notFound" page
       }
     });
 

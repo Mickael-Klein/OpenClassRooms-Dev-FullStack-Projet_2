@@ -1,42 +1,54 @@
-<app-back-home-arrow></app-back-home-arrow>
+<ng-container *ngIf="!serviceResponseIsNotUndefined">
+  <div class="wrongIdContainer">
+    <h2>
+      The country ID you requested doesn t match any of the countries we
+      currently have in our database !
+    </h2>
+    <a routerLink="/">Go back to the Homepage</a>
+  </div>
+</ng-container>
 
-<app-title-container
-  *ngIf="countryName$ | async as contryName"
-  [title]="contryName"
-></app-title-container>
+<ng-container *ngIf="serviceResponseIsNotUndefined">
+  <app-back-home-arrow></app-back-home-arrow>
 
-<div class="countryInfoContainer">
-  <app-info-container
-    *ngIf="
-      infoContainerCountryEntriesCount$
-        | async as infoContainerCountryEntriesCount
-    "
-    [data]="infoContainerCountryEntriesCount"
-    class="countryInfoContainer__component"
-  ></app-info-container>
+  <app-title-container
+    *ngIf="countryName$ | async as contryName"
+    [title]="contryName"
+  ></app-title-container>
 
-  <app-info-container
-    *ngIf="
-      infoContainerCountryMedalsCount$
-        | async as infoContainerCountryMedalsCount
-    "
-    [data]="infoContainerCountryMedalsCount"
-    class="countryInfoContainer__component"
-  ></app-info-container>
+  <div class="countryInfoContainer">
+    <app-info-container
+      *ngIf="
+        infoContainerCountryEntriesCount$
+          | async as infoContainerCountryEntriesCount
+      "
+      [data]="infoContainerCountryEntriesCount"
+      class="countryInfoContainer__component"
+    ></app-info-container>
 
-  <app-info-container
-    *ngIf="
-      infoContainerCountryAthletesCount$
-        | async as infoContainerCountryAthletesCount
-    "
-    [data]="infoContainerCountryAthletesCount"
-    class="countryInfoContainer__component"
-  ></app-info-container>
-</div>
+    <app-info-container
+      *ngIf="
+        infoContainerCountryMedalsCount$
+          | async as infoContainerCountryMedalsCount
+      "
+      [data]="infoContainerCountryMedalsCount"
+      class="countryInfoContainer__component"
+    ></app-info-container>
 
-<div class="lineChartContainer">
-  <app-line-chart-container
-    *ngIf="lineChartContainerData$ | async as lineChartContainerData"
-    [lineChartDatasContainer]="lineChartContainerData"
-  ></app-line-chart-container>
-</div>
+    <app-info-container
+      *ngIf="
+        infoContainerCountryAthletesCount$
+          | async as infoContainerCountryAthletesCount
+      "
+      [data]="infoContainerCountryAthletesCount"
+      class="countryInfoContainer__component"
+    ></app-info-container>
+  </div>
+
+  <div class="lineChartContainer">
+    <app-line-chart-container
+      *ngIf="lineChartContainerData$ | async as lineChartContainerData"
+      [lineChartDatasContainer]="lineChartContainerData"
+    ></app-line-chart-container>
+  </div>
+</ng-container>
