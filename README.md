@@ -31,6 +31,7 @@ This is a Single Page Application (SPA), and the routing is configured in the `a
 
 ## Project Architecture
 
+```
 ├───app
 │ ├───components
 │ │ ├───back-home-arrow
@@ -51,3 +52,4 @@ This is a Single Page Application (SPA), and the routing is configured in the `a
 │ ├───mock
 │ └───Style
 └───environments
+```
