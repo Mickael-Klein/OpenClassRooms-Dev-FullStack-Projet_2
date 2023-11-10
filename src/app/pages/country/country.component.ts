@@ -49,88 +49,117 @@ export class CountryComponent implements OnInit {
 
     this.countryName$ = this.country$.pipe(
       // Get the country name from data in Observable, as an Observable, => app-title-container
-      map((data) => data?.country || 'Error')
+      map((data) => this.getCountryName(data))
     );
 
     this.countryParticipations$ = this.country$.pipe(
       // Get the country participations from data in Observable, as an Observable
-      map((data) => data?.participations || [])
+      map((data) => this.getCountryParticipation(data))
     );
 
     // Create an observable 'infoContainerCountryEntriesCount$' by applying a 'map' operator to 'countryParticipations$'.
     this.infoContainerCountryEntriesCount$ = this.countryParticipations$.pipe(
-      map((data) => {
-        const title = 'Number of entries';
-        // Calculate the count of entries based on the length of 'data' (with optional chaining to handle possible null values).
-        const count = data?.length;
-        return { title: title, count: count };
-      })
+      map((data) => this.getInfoContainerCountryEntriesCount(data))
     );
 
     // Create an observable 'infoContainerCountryMedalsCount$' by applying a 'map' operator to 'countryParticipations$'.
     this.infoContainerCountryMedalsCount$ = this.countryParticipations$.pipe(
-      map((data) => {
-        const title = 'Total number of medals'; // Define a title for the information container.
-        const count = data.reduce((acc, cur) => {
-          // Calculate the total count of medals by reducing the 'medalsCount' property of each entry in 'data'.
-          return acc + cur.medalsCount;
-        }, 0);
-        return { title: title, count: count };
-      })
+      map((data) => this.getInfoContainerCountryMedalsCount(data))
     );
 
     // Create an observable 'infoContainerCountryAthletesCount$' by applying a 'map' operator to 'countryParticipations$'.
     this.infoContainerCountryAthletesCount$ = this.countryParticipations$.pipe(
-      map((data) => {
-        const title = 'Total numbers of athletes';
-        const count = data.reduce((acc, cur) => {
-          // Calculate the total count of athletes by reducing the 'athleteCount' property of each entry in 'data'.
-          return acc + cur.athleteCount;
-        }, 0);
-        return { title: title, count: count };
-      })
+      map((data) => this.getInfoContainerCountryAthletesCount(data))
     );
 
     this.lineChartContainerData$ = this.countryParticipations$.pipe(
       // Create an observable wich will be use in app-line-chart-container, contains data for line chart (ngx-charts)
       switchMap((data) => {
         // High level operator "switchMap" allow to switch to a new observable from data receive from another observable
-        const series: Series[] = [];
-        data.forEach((item) => {
-          series.push({ name: item.year.toString(), value: item.medalsCount });
-        });
+        return this.getLineChartContainerData(data);
+      })
+    );
+  }
 
-        // Get min & max values in series values to pass their closest decades as attributes in line chart component in Y axis scale
-        // (min value => decades under, max value => decades above)
-        let minYValue = Number.MAX_VALUE;
-        let maxYValue = Number.MIN_VALUE;
-        series.forEach((e) => {
-          const cur = e.value;
-          if (cur < minYValue) {
-            minYValue = cur;
-          }
-          if (cur > maxYValue) {
-            maxYValue = cur;
-          }
-        });
-        if (minYValue > 10) {
-          // Allow to find the decade under for line chart Y axis space with min value displayed
-          minYValue = Math.round(minYValue / 10 - 1) * 10;
-        }
-        maxYValue = Math.round(maxYValue / 10 + 1) * 10; // Allow to find the decade above for line chart y axis space with max value displayed
+  getCountryName(data: OlympicCountry | undefined): string {
+    // return country name
+    return data?.country || 'Error';
+  }
 
-        return this.countryName$.pipe(
-          // return final result (type: LineChartDatasContainer) as observable to be use in app-line-chart-container
-          map((name) => {
-            const minMaxValues = new MinMaxSeriesValue(minYValue, maxYValue);
-            const data: LineChartData = new LineChartData(name, series);
-            const lineChartData = new LineChartDatasContainer(
-              [data],
-              minMaxValues
-            );
-            return lineChartData;
-          })
-        );
+  getCountryParticipation(data: OlympicCountry | undefined): Participation[] {
+    return data?.participations || [];
+  }
+
+  getInfoContainerCountryEntriesCount(data: Participation[] | undefined): {
+    title: string;
+    count: number;
+  } {
+    const title = 'Number of entries';
+    // Calculate the count of entries based on the length of 'data' (with optional chaining to handle possible null values).
+    const count = data?.length || 0;
+    return { title: title, count: count };
+  }
+
+  getInfoContainerCountryMedalsCount(data: Participation[] | undefined): {
+    title: string;
+    count: number;
+  } {
+    const title = 'Total number of medals'; // Define a title for the information container.
+    const count =
+      data?.reduce((acc, cur) => {
+        // Calculate the total count of medals by reducing the 'medalsCount' property of each entry in 'data'.
+        return acc + cur.medalsCount;
+      }, 0) || 0;
+    return { title: title, count: count };
+  }
+
+  getInfoContainerCountryAthletesCount(data: Participation[] | undefined): {
+    title: string;
+    count: number;
+  } {
+    const title = 'Total numbers of athletes';
+    const count =
+      data?.reduce((acc, cur) => {
+        // Calculate the total count of athletes by reducing the 'athleteCount' property of each entry in 'data'.
+        return acc + cur.athleteCount;
+      }, 0) || 0;
+    return { title: title, count: count };
+  }
+
+  getLineChartContainerData(
+    data: Participation[] | undefined
+  ): Observable<LineChartDatasContainer> {
+    const series: Series[] = [];
+    data?.forEach((item) => {
+      series.push({ name: item.year.toString(), value: item.medalsCount });
+    });
+
+    // Get min & max values in series values to pass their closest decades as attributes in line chart component in Y axis scale
+    // (min value => decades under, max value => decades above)
+    let minYValue = Number.MAX_VALUE;
+    let maxYValue = Number.MIN_VALUE;
+    series.forEach((e) => {
+      const cur = e.value;
+      if (cur < minYValue) {
+        minYValue = cur;
+      }
+      if (cur > maxYValue) {
+        maxYValue = cur;
+      }
+    });
+    if (minYValue > 10) {
+      // Allow to find the decade under for line chart Y axis space with min value displayed
+      minYValue = Math.round(minYValue / 10 - 1) * 10;
+    }
+    maxYValue = Math.round(maxYValue / 10 + 1) * 10; // Allow to find the decade above for line chart y axis space with max value displayed
+
+    return this.countryName$.pipe(
+      // return final result (type: LineChartDatasContainer) as observable to be use in app-line-chart-container
+      map((name) => {
+        const minMaxValues = new MinMaxSeriesValue(minYValue, maxYValue);
+        const data: LineChartData = new LineChartData(name, series);
+        const lineChartData = new LineChartDatasContainer([data], minMaxValues);
+        return lineChartData;
       })
     );
   }

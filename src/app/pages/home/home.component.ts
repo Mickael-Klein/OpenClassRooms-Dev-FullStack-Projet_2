@@ -27,52 +27,58 @@ export class HomeComponent implements OnInit {
 
     this.joNumber$ = this.olympics$.pipe(
       // Define how many JOs and pass this to child component in html template, provided to child component (app-info-container)
-      map((data) => {
-        const title = 'Number of JOs';
-
-        const uniqueYears = new Set<number>(); // In case one country has more years of participation, Set only contains unique values => this case, years of participation
-        if (data) {
-          data.forEach((item) => {
-            item.participations.forEach((participation) => {
-              uniqueYears.add(participation.year);
-            });
-          });
-        }
-
-        const count = uniqueYears.size; // get number of years in data by getting lenght of the Set
-        return { title: title, count: count };
-      })
+      map((data) => this.getJoNumber(data))
     );
 
     this.countryNumber$ = this.olympics$.pipe(
       // Define how many countries in data => html template use, provided for child component (app-info-container)
-      map((data) => {
-        const title = 'Number of countries';
-        const count = data?.length || 0;
-        return { title: title, count: count };
-      })
+      map((data) => this.getCountryNumber(data))
     );
 
     this.pieChartDatas$ = this.olympics$.pipe(
       // Create observable wich contains datas ready for consumption by pie-chart component
-      map((data) => {
-        const tempPieChartDatas: Array<PieChartData> = []; // initialize array wich will be provided to the app-pie-chart-container, component waits for an array
-        data?.forEach((item) => {
-          const countryMedalsCount = item.participations.reduce((acc, cur) => {
-            // reduce data wich has property "data.medalsCount"
-            return acc + cur.medalsCount;
-          }, 0);
-          const countryData: PieChartData = {
-            name: item.country,
-            value: countryMedalsCount,
-            extra: { id: item.id },
-          };
-          tempPieChartDatas.push(countryData); // Push the object in array
-        });
-        return tempPieChartDatas; // return the array
-      })
+      map((data) => this.getPieChartDatas(data))
     );
   }
 
   titleValue = 'Medals per Country'; // title of the page to display, => app-title-container
+
+  getJoNumber(data: OlympicCountry[] | undefined | null): InfoContainer {
+    const title = 'Number of JOs';
+
+    const uniqueYears = new Set<number>(); // In case one country has more years of participation, Set only contains unique values => this case, years of participation
+    if (data) {
+      data.forEach((item) => {
+        item.participations.forEach((participation) => {
+          uniqueYears.add(participation.year);
+        });
+      });
+    }
+
+    const count = uniqueYears.size; // get number of years in data by getting lenght of the Set
+    return { title: title, count: count };
+  }
+
+  getCountryNumber(data: OlympicCountry[] | undefined | null): InfoContainer {
+    const title = 'Number of countries';
+    const count = data?.length || 0;
+    return { title: title, count: count };
+  }
+
+  getPieChartDatas(data: OlympicCountry[] | undefined | null): PieChartData[] {
+    const tempPieChartDatas: Array<PieChartData> = []; // initialize array wich will be provided to the app-pie-chart-container, component waits for an array
+    data?.forEach((item) => {
+      const countryMedalsCount = item.participations.reduce((acc, cur) => {
+        // reduce data wich has property "data.medalsCount"
+        return acc + cur.medalsCount;
+      }, 0);
+      const countryData: PieChartData = {
+        name: item.country,
+        value: countryMedalsCount,
+        extra: { id: item.id },
+      };
+      tempPieChartDatas.push(countryData); // Push the object in array
+    });
+    return tempPieChartDatas; // return the array
+  }
 }
