@@ -20,8 +20,12 @@ export class AppComponent implements OnInit {
       .loadInitialData()
       .pipe(take(1)) // Get first value emitted by Observable
       .subscribe({
-        next: () => {
+        next: (data) => {
           // after consumation
+          if (!data) {
+            // In case service return an empty object, errorState => true
+            this.loadDataErrorOccured = true;
+          }
           this.isLoading = false; // end loading state
         },
         error: () => {

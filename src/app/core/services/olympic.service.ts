@@ -18,7 +18,7 @@ export class OlympicService {
 
   constructor(private http: HttpClient) {} // Constructor provide http module to this instance and allow it to make various http request (similar to fetch)
 
-  loadInitialData() {
+  loadInitialData(): Observable<OlympicCountry[]> {
     // Upon app initialization, make an HTTP request to fetch data and handle errors if any.
     return this.http.get<OlympicCountry[]>(this.olympicUrl).pipe(
       // Get HTTP data as an observable, and "pipe" allows interactions with it.
