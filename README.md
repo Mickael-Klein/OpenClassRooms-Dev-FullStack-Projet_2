@@ -1,4 +1,4 @@
-# OlympicGamesStarter
+# Olympic Games App
 
 The `Olympic Games app` is an Angular application that allows clients to view two pages of information about the Olympic Games. It features a homepage presenting general stats of different countries and a country page that provides more in-depth information about a specific chosen country.
 
